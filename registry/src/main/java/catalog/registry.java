@@ -1,22 +1,24 @@
 package catalog;
 
-import org.w3c.dom.ls.LSOutput;
-
 import java.util.*;
 
 public class registry {
 
     public static HashMap<Integer, Animal> addAnimal(HashMap<Integer, Animal> catalog) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Введите имя питомца ");
-        String nickname = scanner.nextLine();
-        System.out.println("Введите дату рождения в формате ГГГГ-ММ-ДД: ");
-        String birthdate = scanner.nextLine();
-        System.out.println("Введите выполняемые команды через запятую, в конце нажмите Enter: ");
-        String command = scanner.nextLine();
-        System.out.println("Ваше животное является домашним? (да/нет) : ");
-        String isPet = scanner.nextLine();
         try (counter c = new counter()) {
+            System.out.println("Введите имя питомца ");
+            String nickname = scanner.nextLine();
+            if (nickname.isEmpty()){throw new RuntimeException();};
+            System.out.println("Введите дату рождения в формате ГГГГ-ММ-ДД: ");
+            String birthdate = scanner.nextLine();
+            if (birthdate.isEmpty()){throw new RuntimeException();};
+            System.out.println("Введите выполняемые команды через запятую, в конце нажмите Enter: ");
+            String command = scanner.nextLine();
+            if (command.isEmpty()){throw new RuntimeException();};
+            System.out.println("Ваше животное является домашним? (да/нет) : ");
+            String isPet = scanner.nextLine();
+
             if (isPet.equals("да")) {
                 System.out.println("Если ваш питомец кот/кошка, введите 1. " + '\n'
                         + "Если ваш питомец собака, введите 2." + '\n'
@@ -82,7 +84,7 @@ public class registry {
             }
             System.out.println("Питомец добавлен в каталог.\n");
         } catch (RuntimeException ex) {
-            System.out.println("Введен неправильный код");
+            System.out.println("Введены неверные данные");
         }
         return catalog;
     }
@@ -97,7 +99,7 @@ public class registry {
         boolean f = true;
         for (Animal anim : list) {
             if (anim.getName().equals(nickname) && anim.getBirthdate().equals(birthdate)) {
-                System.out.println("Команды, которые выполняет питомец " + anim.getName() + ": " + anim.getCommands()+"\n");
+                System.out.println("Команды, которые выполняет питомец " + anim.getName() + ": " + anim.getCommands() + "\n");
                 f = false;
             }
         }
@@ -118,7 +120,7 @@ public class registry {
                 String newcom = scanner.nextLine();
                 newcom = anim.getCommands().concat(", ").concat(newcom);
                 anim.setCommands(newcom);
-                System.out.println("Питомец " + anim.getName() + " теперь умеет: " + anim.getCommands()+"\n");
+                System.out.println("Питомец " + anim.getName() + " теперь умеет: " + anim.getCommands() + "\n");
                 f = false;
             }
         }
