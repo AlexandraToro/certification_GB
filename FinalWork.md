@@ -1,9 +1,11 @@
-Итоговая аттестация
-Информация о проекте
+# Итоговая аттестация
+
+## Информация о проекте
+
 Необходимо организовать систему учета для питомника, в котором живут
 домашние и вьючные животные.
 
-Задание
+### Задание
 1. Используя команду cat в терминале операционной системы Linux, создать
 два файла Домашние животные (заполнив файл собаками, кошками,
 хомяками) и Вьючные животными заполнив файл Лошадьми, верблюдами и
@@ -47,14 +49,61 @@
 
 	mv mansFriends animals
 
+**Проверка**
+
+    root@taya-VirtualBox:/home/taya# cat mansFriends
+
+    cat: mansFriends: Нет такого файла или каталога
+
+    root@taya-VirtualBox:/home/taya# cat animals/mansFriends
+    Dogs
+    Cats
+    Hamsters
+    Horses
+    Camels
+    Donkeys
+
+
 3. Подключить дополнительный репозиторий MySQL. Установить любой пакет
 из этого репозитория.
 
-    Подключение дополнительного репозитория ведется по инструкции, желательно официального сайта. В данном случае инструкция https://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/#apt-repo-setup.
+*Скачать версию файла конфигурации репозитория*
 
-    После подключения дополнительного репозитория для установки MySql-server набрать следующую команду:
+    wget https://repo.mysql.com//mysql-apt-config_0.8.24-1_all.deb
 
-    sudo apt-get install mysql-server
+*Добавить репозиторий*
+
+    sudo dpkg -i mysql-apt-config_0.8.24-1_all.deb
+
+*Обновление баз пакетов*
+
+    sudo apt update
+
+*Установка MySQL*
+
+    sudo apt install -y mysql-server
+
+*Проверка статуса сервиса*
+
+    systemctl status mysql
+
+*Вывод*
+
+    ● mysql.service - MySQL Community Server
+        Loaded: loaded (/lib/systemd/system/mysql.service; enabled; vendor preset: enabled)
+        Active: active (running) since Thu 2023-02-23 02:34:06 +07; 23s ago
+        Docs: man:mysqld(8)
+                http://dev.mysql.com/doc/refman/en/using-systemd.html
+    Main PID: 57089 (mysqld)
+        Status: "Server is operational"
+        Tasks: 39 (limit: 2279)
+        Memory: 371.8M
+            CPU: 3.931s
+        CGroup: /system.slice/mysql.service
+                └─57089 /usr/sbin/mysqld
+
+    фев 23 02:34:03 alexandra-VirtualBox systemd[1]: Starting MySQL Community Server...
+    фев 23 02:34:06 alexandra-VirtualBox systemd[1]: Started MySQL Community Server.
 
 4. Установить и удалить deb-пакет с помощью dpkg.
 
@@ -66,12 +115,31 @@
 
 5. Выложить историю команд в терминале ubuntu
 
-    см.выше
+   14  wget https://repo.mysql.com//mysql-apt-config_0.8.24-1_all.deb
+   15  sudo dpkg -i mysql-apt-config_0.8.24-1_all.deb
+   16  sudo apt  update
+   17  sudo apt install -y mysql-server
+   18  systemctl status mysql
+   19  wget https://download.virtualbox.org/virtualbox/7.0.4/virtualbox-7.0_7.0.4-154605~Ubuntu~jammy_amd64.deb
+   20  sudo dpkg -i virtualbox-7.0_7.0.4-154605~Ubuntu~jammy_amd64.deb
+   21  sudo apt -f install
+   22  apt list | grep virtualbox
+   23  cat > Pets
+   24  cat > PackAnimals
+   25  cat Pets PackAnimals > Animals
+   26  cat Animals
+   27  mkdir animals
+   28  mv Animals mansFriends
+   29  mv mansFriends animals
+   30  cat mansFriends
+   31  cat animals/mansFriends
 
 6. Нарисовать диаграмму, в которой есть класс родительский класс, домашние
 животные и вьючные животные, в составы которых в случае домашних
 животных войдут классы: собаки, кошки, хомяки, а в класс вьючные животные
 войдут: Лошади, верблюды и ослы).
+
+[https://drive.google.com/file/d/1r3IL0Ozz3eqT--IR1uZ4k92YGhpXjsU-/view?usp=share_link]
 
 7. В подключенном MySQL репозитории создать базу данных “Друзья
 человека”
@@ -239,25 +307,12 @@
 
 *-- Запрос*
 
-    SELECT * FROM cats
+    SELECT id, nickname, birthdate, commands, animalspecies_id as fromTable FROM cats
     UNION ALL
-    SELECT * FROM dogs
+    SELECT id, nickname, birthdate, commands, animalspecies_id as fromTable  FROM dogs
     UNION ALL
-    SELECT * FROM hamsters
+    SELECT id, nickname, birthdate, commands, animalspecies_id as fromTable  FROM hamsters
     UNION ALL
-    SELECT * FROM horseanddonkey;
+    SELECT id, nickname, birthdate, commands, animalspecies_id as fromTable  FROM horseanddonkey;
 
-13. Создать класс с Инкапсуляцией методов и наследованием по диаграмме.
-14. Написать программу, имитирующую работу реестра домашних животных.
-В программе должен быть реализован следующий функционал:
-14.1 Завести новое животное
-14.2 определять животное в правильный класс
-14.3 увидеть список команд, которое выполняет животное
-14.4 обучить животное новым командам
-14.5 Реализовать навигацию по меню
-15. Создайте класс Счетчик, у которого есть метод add(), увеличивающий̆
-значение внутренней̆ int переменной̆ на 1 при нажатии “Завести новое
-животное” Сделайте так, чтобы с объектом такого типа можно было работать в
-блоке try-with-resources. Нужно бросить исключение, если работа с объектом
-типа счетчик была не в ресурсном try и/или ресурс остался открыт. Значение
-считать в ресурсе try, если при заведении животного заполнены все поля.
+13.-15. Результат в проекте.
